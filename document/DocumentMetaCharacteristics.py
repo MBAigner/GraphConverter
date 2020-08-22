@@ -91,7 +91,6 @@ class DocumentMetaCharacteristics(object):
         """
         X = [[self.font_size_entropy, self.font_name_entropy, self.bold_pct,
               self.italic_pct, self.x_var, self.y_var, np.mean(self.avg_widths)]]
-        # TODO coordinate differences
         self.x_eps = constants.DEFAULT_X_EPS
         self.y_eps = constants.DEFAULT_Y_EPS
         self.x_phys = constants.DEFAULT_X_PHYS
@@ -114,20 +113,9 @@ class DocumentMetaCharacteristics(object):
 
         :return:
         """
+        self.optimize()  # calculate meta characteristics
         if self.optimize_params:
-            self.optimize()  # calculate meta characteristics
-            if constants.REGRESS_GRAPH_PARAMETERS:
-                self.regress_parameters()
-        else:
-            constants.DEFAULT_PAGE_RATIO_X = 2
-            constants.DEFAULT_PAGE_RATIO_Y = 20
-            constants.DEFAULT_X_EPS = 2
-            constants.DEFAULT_Y_EPS = 2
-            constants.DEFAULT_X_PHYS = constants.DEFAULT_X_EPS
-            constants.DEFAULT_FONT_EPS_VERTICAL = 1
-            constants.DEFAULT_FONT_EPS_HORIZONTAL = constants.DEFAULT_FONT_EPS_VERTICAL
-            constants.DEFAULT_WIDTH_PCT = .4
-            constants.DEFAULT_PAGE_WIDTH_EPS = .5
+            self.regress_parameters()
         # default thresholds based on page size
         for page in range(self.num_pages):
             self.media_box_width[page] = self.media_boxes[page]['x1'] - \

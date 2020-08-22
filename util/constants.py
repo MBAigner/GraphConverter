@@ -3,10 +3,7 @@ MERGE_RECTANGLE_TEXT_BOXES = False
 USE_RECTANGLE_BOX_COORDINATES = False
 
 # paths
-OCR_PATH = "../converted_data/ocr/"
-CSV_PATH = "../converted_data/csv/"
-GRAPH_PATH = "../converted_data/graph/"
-CLUSTER_PATH = "../converted_data/clustered/"
+PDF_PATH = "./pdf/"
 MODEL_PATH = "../models/"
 
 # document meta calculations

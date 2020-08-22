@@ -3,38 +3,22 @@ import networkx as nx
 import numpy as np
 from util import constants, RectangleUtil
 from util import StorageUtil
-from os.path import exists
-import pandas as pd
-import ast
 from document.DocumentMetaCharacteristics import DocumentMetaCharacteristics
 from merging.PDFTextBoxMerging import PDFTextBoxMerging
 
 
 class GraphConverter(object):
 
-    def __init__(self, pdf):
+    def __init__(self, pdf, regress_parameters=constants.OPTIMIZE):
         self.pdf = pdf
-        convert_pdf = True
-        if constants.LOAD_CSV:
-            pdf = StorageUtil.get_file_name(self.pdf)
-            csv_file = constants.CSV_PATH + StorageUtil.replace_file_type(pdf, "csv")
-            if exists(csv_file):
-                convert_pdf = False
-                self.loc_df = pd.read_csv(csv_file, index_col=0, sep=";",
-                                          keep_default_na=False,
-                                          converters={"abs_pos": ast.literal_eval,
-                                                      "in_element_ids": ast.literal_eval})
-                self.media_boxes = StorageUtil.load_object(constants.CSV_PATH,
-                                                           StorageUtil.cut_file_type(pdf))
-        if convert_pdf:
-            self.loc_df, self.media_boxes = PDFContentConverter(self.pdf).convert()
-            self.loc_df = PDFTextBoxMerging(data=self.loc_df,
-                                            output_path=constants.CSV_PATH + StorageUtil.replace_file_type(
-                                                                StorageUtil.get_file_name(self.pdf), "csv"),
-                                            media_boxes=self.media_boxes).transform()
+        self.loc_df, self.media_boxes = PDFContentConverter(self.pdf).convert()
+        self.loc_df = PDFTextBoxMerging(data=self.loc_df,
+                                        output_path=constants.CSV_PATH + StorageUtil.replace_file_type(
+                                                            StorageUtil.get_file_name(self.pdf), "csv"),
+                                        media_boxes=self.media_boxes).transform()
         if self.loc_df is not None:
             self.meta = DocumentMetaCharacteristics(self.loc_df, self.media_boxes,
-                                                    optimize=constants.OPTIMIZE)
+                                                    optimize=regress_parameters)
             self.meta.generate_attributes()
 
     def convert_graph(self):
@@ -59,11 +43,6 @@ class GraphConverter(object):
             G = nx.disjoint_union(nx.MultiDiGraph(), G)
             G = self.label_loops(G)
             graph_list.append(G)
-        if constants.STORE_GRAPH:
-            StorageUtil.save_object(graph_list, constants.GRAPH_PATH,
-                                    StorageUtil.cut_file_type(StorageUtil.get_file_name(self.pdf)))
-            StorageUtil.save_object(self.meta, constants.GRAPH_PATH,
-                                    StorageUtil.cut_file_type(StorageUtil.get_file_name(self.pdf)) + "_meta")
         return graph_list, self.meta
 
     def add_edges(self, G, page=0):
