@@ -98,15 +98,15 @@ class DocumentMetaCharacteristics(object):
         self.font_eps_v = constants.DEFAULT_FONT_EPS_VERTICAL
         self.width_pct_eps = constants.DEFAULT_WIDTH_PCT
         self.width_page_eps = 1
-        self.page_ratio_x = StorageUtil.load_object("../models/graph_parameters/", "page_ratio_x").predict(X)
-        self.page_ratio_y = StorageUtil.load_object("../models/graph_parameters/", "page_ratio_y").predict(X)
-        self.x_eps = StorageUtil.load_object("../models/graph_parameters/", "x_eps").predict(X)
+        self.page_ratio_x = StorageUtil.load_object(constants.MODEL_PATH, "page_ratio_x").predict(X)
+        self.page_ratio_y = StorageUtil.load_object(constants.MODEL_PATH, "page_ratio_y").predict(X)
+        self.x_eps = StorageUtil.load_object(constants.MODEL_PATH, "x_eps").predict(X)
         self.x_phys = self.x_eps
-        self.y_eps = StorageUtil.load_object("../models/graph_parameters/", "page_ratio_y").predict(X)
-        self.font_eps_h = StorageUtil.load_object("../models/graph_parameters/", "font_eps").predict(X)
+        self.y_eps = StorageUtil.load_object(constants.MODEL_PATH, "page_ratio_y").predict(X)
+        self.font_eps_h = StorageUtil.load_object(constants.MODEL_PATH, "font_eps").predict(X)
         self.font_eps_v = self.font_eps_h
-        self.width_pct_eps = StorageUtil.load_object("../models/graph_parameters/", "width_pct_eps").predict(X)
-        self.width_page_eps = StorageUtil.load_object("../models/graph_parameters/", "threshold_page_width").predict(X)
+        self.width_pct_eps = StorageUtil.load_object(constants.MODEL_PATH, "width_pct_eps").predict(X)
+        self.width_page_eps = StorageUtil.load_object(constants.MODEL_PATH, "threshold_page_width").predict(X)
 
     def generate_attributes(self):
         """

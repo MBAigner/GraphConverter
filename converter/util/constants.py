@@ -1,6 +1,6 @@
 
-CSV_PATH = "./csv/"
 PDF_PATH = "./pdf/"
+MODEL_PATH = "../models/graph_parameters/"
 
 # pdf miner layout analysis parameters
 USE_CUSTOM_PDF_PARAMETERS = True
