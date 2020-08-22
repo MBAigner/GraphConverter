@@ -11,7 +11,9 @@ class GraphConverter(object):
 
     def __init__(self, pdf, regress_parameters=constants.OPTIMIZE):
         self.pdf = pdf
-        self.loc_df, self.media_boxes = PDFContentConverter(self.pdf).convert()
+        conv = PDFContentConverter(self.pdf).convert()
+        self.loc_df = conv["result"]
+        self.media_boxes = conv["media_boxes"]
         self.loc_df = PDFTextBoxMerging(data=self.loc_df,
                                         output_path=constants.CSV_PATH + StorageUtil.replace_file_type(
                                                             StorageUtil.get_file_name(self.pdf), "csv"),
