@@ -12,18 +12,16 @@ class GraphConverter(object):
     def __init__(self, pdf, regress_parameters=constants.OPTIMIZE):
         self.pdf = pdf
         conv = PDFContentConverter(self.pdf).convert()
-        self.loc_df = conv["result"]
+        self.loc_df = conv["content"]
         self.media_boxes = conv["media_boxes"]
         self.loc_df = PDFTextBoxMerging(data=self.loc_df,
-                                        output_path=constants.CSV_PATH + StorageUtil.replace_file_type(
-                                                            StorageUtil.get_file_name(self.pdf), "csv"),
                                         media_boxes=self.media_boxes).transform()
         if self.loc_df is not None:
             self.meta = DocumentMetaCharacteristics(self.loc_df, self.media_boxes,
                                                     optimize=regress_parameters)
             self.meta.generate_attributes()
 
-    def convert_graph(self):
+    def convert(self):
         """
 
         :return:
@@ -45,7 +43,8 @@ class GraphConverter(object):
             G = nx.disjoint_union(nx.MultiDiGraph(), G)
             G = self.label_loops(G)
             graph_list.append(G)
-        return graph_list, self.meta
+        return {"graphs": graph_list,
+                "document_meta": self.meta}
 
     def add_edges(self, G, page=0):
         """

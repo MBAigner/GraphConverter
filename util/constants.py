@@ -7,7 +7,7 @@ PDF_PATH = "./pdf/"
 MODEL_PATH = "../models/"
 
 # document meta calculations
-OPTIMIZE = True
+OPTIMIZE = False
 
 # visibility graph settings
 USE_FONT = True

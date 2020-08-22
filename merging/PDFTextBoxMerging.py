@@ -4,9 +4,8 @@ from util import constants
 
 class PDFTextBoxMerging(object):
 
-    def __init__(self, data, output_path, media_boxes):
+    def __init__(self, data, media_boxes):
         self.data = data
-        self.file = output_path
         self.media_boxes = media_boxes
 
     def transform(self):
@@ -82,6 +81,5 @@ class PDFTextBoxMerging(object):
                     row_complete = row
                 prev_rect = rect
         data_new.dropna(inplace=True)
-        data_new.to_csv(self.file, sep=";")
         self.data = data_new.drop(["in_element_ids2"], axis=1)
         return self.data
