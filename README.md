@@ -22,10 +22,13 @@ General document characteristics are stored in a ```converter.meta``` object.
 
 A more detailed example usage is also given in ```Tester.py```.
 
+## Example
+
+TODO add example image
 
 ## Settings
 
-...
+TODO describe meta characteristics, thresholds, ...
 
 ## Project Structure
 
