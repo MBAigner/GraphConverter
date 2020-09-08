@@ -2,15 +2,22 @@ from converter.PDFContentConverter import PDFContentConverter
 import networkx as nx
 import numpy as np
 from util import constants, RectangleUtil
-from util import StorageUtil
 from document.DocumentMetaCharacteristics import DocumentMetaCharacteristics
 from merging.PDFTextBoxMerging import PDFTextBoxMerging
 
 
 class GraphConverter(object):
 
-    def __init__(self, pdf, regress_parameters=constants.OPTIMIZE):
+    def __init__(self, pdf, merge_boxes=False, regress_parameters=False,
+                 use_font=True, use_width=True, use_rect=True, use_horizontal_overlap=False,
+                 use_vertical_overlap=False,
+                 page_ratio_x=2, page_ratio_y=2, x_eps=2, y_eps=2, font_eps_h=1, font_eps_v=1,
+                 width_pct_eps=.4, width_page_eps=.5):
         self.pdf = pdf
+        self.set_attributes(merge_boxes, regress_parameters,
+                            use_font, use_width, use_rect, use_horizontal_overlap, use_vertical_overlap,
+                            page_ratio_x, page_ratio_y, x_eps, y_eps, font_eps_h, font_eps_v,
+                            width_pct_eps, width_page_eps)
         conv = PDFContentConverter(self.pdf).convert()
         self.loc_df = conv["content"]
         self.media_boxes = conv["media_boxes"]
@@ -20,6 +27,47 @@ class GraphConverter(object):
             self.meta = DocumentMetaCharacteristics(self.loc_df, self.media_boxes,
                                                     optimize=regress_parameters)
             self.meta.generate_attributes()
+
+    def set_attributes(self, merge_boxes, regress_parameters,
+                       use_font, use_width, use_rect, use_horizontal_overlap, use_vertical_overlap,
+                       page_ratio_x, page_ratio_y, x_eps, y_eps, font_eps_h, font_eps_v,
+                       width_pct_eps, width_page_eps):
+        """
+
+        :param merge_boxes:
+        :param regress_parameters:
+        :param use_font:
+        :param use_width:
+        :param use_rect:
+        :param use_horizontal_overlap:
+        :param use_vertical_overlap:
+        :param page_ratio_x:
+        :param page_ratio_y:
+        :param x_eps:
+        :param y_eps:
+        :param font_eps_h:
+        :param font_eps_v:
+        :param width_pct_eps:
+        :param width_page_eps:
+        :return:
+        """
+        constants.USE_FONT = use_font
+        constants.USE_WIDTH = use_width
+        constants.USE_RECT = use_rect
+        constants.USE_HORIZONTAL_OVERLAP = use_horizontal_overlap
+        constants.USE_VERTICAL_OVERLAP = use_vertical_overlap
+        constants.MERGE_RECTANGLE_TEXT_BOXES = merge_boxes
+        constants.USE_RECTANGLE_BOX_COORDINATES = merge_boxes
+        constants.OPTIMIZE = regress_parameters
+        constants.DEFAULT_PAGE_RATIO_X = page_ratio_x
+        constants.DEFAULT_PAGE_RATIO_Y = page_ratio_y
+        constants.DEFAULT_X_EPS = x_eps
+        constants.DEFAULT_Y_EPS = y_eps
+        constants.DEFAULT_X_PHYS = x_eps
+        constants.DEFAULT_FONT_EPS_HORIZONTAL = font_eps_h
+        constants.DEFAULT_FONT_EPS_VERTICAL = font_eps_v
+        constants.DEFAULT_WIDTH_PCT = width_pct_eps
+        constants.DEFAULT_PAGE_WIDTH_EPS = width_page_eps
 
     def convert(self):
         """
@@ -186,8 +234,8 @@ class GraphConverter(object):
             length = np.sqrt(lengthx**2 + lengthy**2)
             if len(edges_from_node) == 0:
                 graph.add_edge(x[0], x[1], length=length,
-                           lengthx_phys=lengthx, lengthy_phys=lengthy, direction="l",
-                           weight=1 / length, key="l")
+                               lengthx_phys=lengthx, lengthy_phys=lengthy, direction="l",
+                               weight=1 / length, key="l")
             elif len(edges_from_node) > 0:
                 if edges_from_node[0][3]["length"] >= length:
                     graph.remove_edges_from(edges_from_node)
