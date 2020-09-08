@@ -1,15 +1,18 @@
 # Graph Converter
 
-The Graph Converter is a tool for creating a graph representation out of the content of PDFs or images.
+The Graph Converter is a tool for creating a graph representation out of the content of PDFs.
 A graph representation can act as the basis for further document processing steps.
 Geometric relationships are encapsulated. By those, a document structure can be retrieved.
 
-The processing of PDF documents is done using the ```PDFContentConverter```.
+The tool works independent of different document layouts.
+The graph construction can be controlled 
+
+The processing of PDF documents is done using the ```PDFContentConverter``` library.
 
 ## How-to
 
-* Pass the path of the PDF file or image which is wanted to be converted to ```GraphConverter```.
-* Call the function ```convert()```. The PDF content is then returned as a pandas dataframe.
+* Pass the path of the PDF file which is wanted to be converted to ```GraphConverter```.
+* Call the function ```convert()```. The document graph representations are returned page-wise as a list of ```networkx``` graphs.
 * Media boxes of a PDF can be accessed using ```get_media_boxes()```, the page count over ```get_page_count()```
 
 Example call: 
@@ -80,6 +83,15 @@ The media boxes possess the following entries in a dictionary:
 * ```y1page```: Bottom y page coordinate
 
 
+## Future Work
+
+* The ```GraphConverter``` will be extended using OCR processing for images in order to support more unstructured types than solely PDFs.
+
 ## Acknowledgements
 
 * Example PDFs are obtained from the ICDAR Table Recognition Challenge 2013 https://roundtrippdf.com/en/data-extraction/pdf-table-recognition-dataset/.
+
+## Authors
+
+* Michael Benedikt Aigner
+* Florian Preis
