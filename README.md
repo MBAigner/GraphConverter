@@ -5,7 +5,8 @@ A graph representation can act as the basis for further document processing step
 Geometric relationships are encapsulated. By those, a document structure can be retrieved.
 
 The tool works independent of different document layouts.
-The graph construction can be controlled 
+The graph construction can be controlled via parameter settings mentioned subsequently.
+Furthermore, layout-based optimizations without the need parameter tweaks are supported using a regression estimation based on document layout characteristics.
 
 The processing of PDF documents is done using the ```PDFContentConverter``` library.
 
