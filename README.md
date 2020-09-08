@@ -21,8 +21,9 @@ Example call:
     converter = GraphConverter(pdf)
     result = converter.convert()
 
+A file is the only parameter mandatory for a graph construction.
 Beside the graph conversion, media boxes of a document can be accessed using ```get_media_boxes()``` and the page count over ```get_page_count()```.
-General document characteristics are stored in a ```converter.meta``` object.
+General document layout characteristics are stored in a ```converter.meta``` object.
 
 A more detailed example usage is also given in ```Tester.py```.
 
@@ -33,7 +34,30 @@ TODO
 
 ## Settings
 
-TODO describe meta characteristics, thresholds, ...
+General parameters:
+
+* ```file```: file name
+* ```merge_boxes```: indicating if PDF text boxes should be graph nodes, based on visual rectangles present in documents.
+* ```regress_parameters```: indicating if graph parameters are regressed or used as a priori optimized default ones.
+
+Edge restrictions:
+
+* ```use_font```: differing font size
+* ```use_width```: differing width
+* ```use_rect```: nodes contained in differing visual structures
+* ```use_horizontal_overlap```: indicating if horizontal edges should be built on overlap. If not, default deltas are used.
+* ```use_vertical_overlap```: indicating if vertical edges should be built on overlap. If not, default deltas are used.
+
+Edge thresholds:
+
+* ```page_ratio_x```: maximal relative horizontal distance of two nodes where an edge can be created
+* ```page_ratio_y```: maximal relative vertical distance of two nodes where an edge can be created
+* ```x_eps```: alignment epsilon for vertical edges in points if ```use_horizontal_overlap``` is not enabled
+* ```y_eps```: alignment epsilon for horizontal edges in points if ```use_vertical_overlap``` is not enabled
+* ```font_eps_h```: indicates how much font sizes of nodes are allowed to differ as a constraint for building horizontal edges when ``use_font``` is enabled
+* ```font_eps_v```: indicates how much font sizes of nodes are allowed to differ as a constraint for building vertical edges when ``use_font``` is enabled
+* ```width_pct_eps```: relative width difference of nodes as a condition for vertical edges if ```use_width``` is enabled
+* ```width_page_eps```: indicating at which maximal width of a node the width should act as an edge condition if ```use_width``` is enabled
 
 ## Project Structure
 
