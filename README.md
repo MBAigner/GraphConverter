@@ -1,15 +1,19 @@
 # Graph Converter
 
-The Graph Converter is a tool for creating a graph representation out of the content of PDFs or images.
+The Graph Converter is a tool for creating a graph representation out of the content of PDFs.
 A graph representation can act as the basis for further document processing steps.
 Geometric relationships are encapsulated. By those, a document structure can be retrieved.
 
-The processing of PDF documents is done using the ```PDFContentConverter```.
+The tool works independent of different document layouts.
+The graph construction can be controlled via parameter settings mentioned subsequently.
+Furthermore, layout-based optimizations without the need parameter tweaks are supported using a regression estimation based on document layout characteristics.
+
+The processing of PDF documents is done using the ```PDFContentConverter``` library.
 
 ## How-to
 
-* Pass the path of the PDF file or image which is wanted to be converted to ```GraphConverter```.
-* Call the function ```convert()```. The PDF content is then returned as a pandas dataframe.
+* Pass the path of the PDF file which is wanted to be converted to ```GraphConverter```.
+* Call the function ```convert()```. The document graph representations are returned page-wise as a list of ```networkx``` graphs.
 * Media boxes of a PDF can be accessed using ```get_media_boxes()```, the page count over ```get_page_count()```
 
 Example call: 
@@ -17,18 +21,43 @@ Example call:
     converter = GraphConverter(pdf)
     result = converter.convert()
 
+A file is the only parameter mandatory for a graph construction.
 Beside the graph conversion, media boxes of a document can be accessed using ```get_media_boxes()``` and the page count over ```get_page_count()```.
-General document characteristics are stored in a ```converter.meta``` object.
+General document layout characteristics are stored in a ```converter.meta``` object.
 
 A more detailed example usage is also given in ```Tester.py```.
 
 ## Example
 
-TODO add example image
+The following image shows a resulting document graph representation when using the ```GraphConverter```.
+TODO
 
 ## Settings
 
-TODO describe meta characteristics, thresholds, ...
+General parameters:
+
+* ```file```: file name
+* ```merge_boxes```: indicating if PDF text boxes should be graph nodes, based on visual rectangles present in documents.
+* ```regress_parameters```: indicating if graph parameters are regressed or used as a priori optimized default ones.
+
+Edge restrictions:
+
+* ```use_font```: differing font size
+* ```use_width```: differing width
+* ```use_rect```: nodes contained in differing visual structures
+* ```use_horizontal_overlap```: indicating if horizontal edges should be built on overlap. If not, default deltas are used.
+* ```use_vertical_overlap```: indicating if vertical edges should be built on overlap. If not, default deltas are used.
+
+Edge thresholds:
+
+* ```page_ratio_x```: maximal relative horizontal distance of two nodes where an edge can be created
+* ```page_ratio_y```: maximal relative vertical distance of two nodes where an edge can be created
+* ```x_eps```: alignment epsilon for vertical edges in points if ```use_horizontal_overlap``` is not enabled
+* ```y_eps```: alignment epsilon for horizontal edges in points if ```use_vertical_overlap``` is not enabled
+* ```font_eps_h```: indicates how much font sizes of nodes are allowed to differ as a constraint for building horizontal edges when ```use_font``` is enabled
+* ```font_eps_v```: indicates how much font sizes of nodes are allowed to differ as a constraint for building vertical edges when ```use_font``` is enabled
+* ```width_pct_eps```: relative width difference of nodes as a condition for vertical edges if ```use_width``` is enabled
+* ```width_page_eps```: indicating at which maximal width of a node the width should act as an edge condition if ```use_width``` is enabled
 
 ## Project Structure
 
@@ -40,6 +69,20 @@ TODO describe meta characteristics, thresholds, ...
 * ```pdf```: example pdf input files for tests
 
 ## Output Format
+
+As a result, a list of ```networkx``` graphs is returned.
+Each graph encapsulates a structured representation of a single page.
+
+Edges are attributed with the following features:
+
+* ```direction```: shows the direction of an edge.
+    * ```v```: Vertical edge
+    * ```h```: Horizontal edge
+    * ```l```: Rectangular loop. This represents a novel concept encapsulating structural characteristics of document segments by observing if two different paths end up in the same node.
+* ```length```: Scaled length of an edge
+* ```lengthx_phys```: Horizontal edge length
+* ```lengthy_phys```: Vertical edge length
+* ```weight```: Scaled total length
 
 All nodes contain the following content attributes:
 
@@ -80,6 +123,15 @@ The media boxes possess the following entries in a dictionary:
 * ```y1page```: Bottom y page coordinate
 
 
+## Future Work
+
+* The ```GraphConverter``` will be extended using OCR processing for images in order to support more unstructured types than solely PDFs.
+
 ## Acknowledgements
 
 * Example PDFs are obtained from the ICDAR Table Recognition Challenge 2013 https://roundtrippdf.com/en/data-extraction/pdf-table-recognition-dataset/.
+
+## Authors
+
+* Michael Benedikt Aigner
+* Florian Preis
