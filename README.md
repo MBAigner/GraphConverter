@@ -30,7 +30,9 @@ A more detailed example usage is also given in ```Tester.py```.
 ## Example
 
 The following image shows a resulting document graph representation when using the ```GraphConverter```.
-TODO
+
+<center><img src="./documentation/visibility_graph.png", height="300", width="200" /></center>
+
 
 ## Settings
 
