@@ -54,8 +54,8 @@ Edge thresholds:
 * ```page_ratio_y```: maximal relative vertical distance of two nodes where an edge can be created
 * ```x_eps```: alignment epsilon for vertical edges in points if ```use_horizontal_overlap``` is not enabled
 * ```y_eps```: alignment epsilon for horizontal edges in points if ```use_vertical_overlap``` is not enabled
-* ```font_eps_h```: indicates how much font sizes of nodes are allowed to differ as a constraint for building horizontal edges when ``use_font``` is enabled
-* ```font_eps_v```: indicates how much font sizes of nodes are allowed to differ as a constraint for building vertical edges when ``use_font``` is enabled
+* ```font_eps_h```: indicates how much font sizes of nodes are allowed to differ as a constraint for building horizontal edges when ```use_font``` is enabled
+* ```font_eps_v```: indicates how much font sizes of nodes are allowed to differ as a constraint for building vertical edges when ```use_font``` is enabled
 * ```width_pct_eps```: relative width difference of nodes as a condition for vertical edges if ```use_width``` is enabled
 * ```width_page_eps```: indicating at which maximal width of a node the width should act as an edge condition if ```use_width``` is enabled
 
