@@ -28,7 +28,8 @@ A more detailed example usage is also given in ```Tester.py```.
 
 ## Example
 
-TODO add example image
+The following image shows a resulting document graph representation when using the ```GraphConverter```.
+TODO
 
 ## Settings
 
@@ -44,6 +45,20 @@ TODO describe meta characteristics, thresholds, ...
 * ```pdf```: example pdf input files for tests
 
 ## Output Format
+
+As a result, a list of ```networkx``` graphs is returned.
+Each graph encapsulates a structured representation of a single page.
+
+Edges are attributed with the following features:
+
+* ```direction```: shows the direction of an edge.
+    * ```v```: Vertical edge
+    * ```h```: Horizontal edge
+    * ```l```: Rectangular loop. This represents a novel concept encapsulating structural characteristics of document segments by observing if two different paths end up in the same node.
+* ```length```: Scaled length of an edge
+* ```lengthx_phys```: Horizontal edge length
+* ```lengthy_phys```: Vertical edge length
+* ```weight```: Scaled total length
 
 All nodes contain the following content attributes:
 
