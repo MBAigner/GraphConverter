@@ -30,9 +30,7 @@ A more detailed example usage is also given in ```Tester.py```.
 ## Example
 
 The following image shows a resulting document graph representation when using the ```GraphConverter```.
-
-<center><img src="./documentation/visibility_graph.png", height="300", width="200" /></center>
-
+TODO
 
 ## Settings
 
@@ -64,15 +62,11 @@ Edge thresholds:
 ## Project Structure
 
 * ```GraphConverter.py```: contains the ```GraphConverter``` class for converting documents into graphs.
-* ```models```:  contains regression models for layout-independent document processing
-* ```document```: contains the ```DocumentMetaCharacteristics``` class for a layout-independent document processing or managing default thresholds
-* ```merging```: contains the ```PDFTextBoxMerging``` class for an aggregation of layout elements treating the visual rectangle structures of a document
 * ```util```:
-  * ```constants```: paths, thresholds
+  * ```constants```: 
   * ```StorageUtil```: store/load functionalities
-  * ```RectangleUtil```: functionalities for visual rectangle constraints
-* ```test/Tester.py```: Python script for testing the ```GraphConverter```
-* ```pdf```: example PDF input files for tests
+* ```Tester.py```: Python script for testing the ```GraphConverter```
+* ```pdf```: example pdf input files for tests
 
 ## Output Format
 
