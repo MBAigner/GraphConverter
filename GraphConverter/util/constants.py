@@ -4,7 +4,7 @@ MERGE_RECTANGLE_TEXT_BOXES = False
 USE_RECTANGLE_BOX_COORDINATES = False
 
 # paths
-PDF_PATH = "../pdf/"
+PDF_PATH = "./pdf/"
 MODEL_PATH = "GraphConverter/models/graph_parameters/"
 
 # document meta calculations
