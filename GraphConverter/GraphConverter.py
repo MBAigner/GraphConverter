@@ -14,6 +14,8 @@ class GraphConverter(object):
                  page_ratio_x=2, page_ratio_y=2, x_eps=2, y_eps=2, font_eps_h=1, font_eps_v=1,
                  width_pct_eps=.4, width_page_eps=.5):
         self.pdf = pdf
+        self.graphs = None
+        self.meta = None
         self.set_attributes(merge_boxes, regress_parameters,
                             use_font, use_width, use_rect, use_horizontal_overlap, use_vertical_overlap,
                             page_ratio_x, page_ratio_y, x_eps, y_eps, font_eps_h, font_eps_v,
@@ -92,8 +94,11 @@ class GraphConverter(object):
             G = nx.disjoint_union(nx.MultiDiGraph(), G)
             G = self.label_loops(G)
             graph_list.append(G)
-        return {"graphs": graph_list,
-                "document_meta": self.meta}
+        self.graphs = graph_list
+        return {
+            "graphs": graph_list,
+            "document_meta": self.meta
+        }
 
     def add_edges(self, G, page=0):
         """
@@ -332,3 +337,21 @@ class GraphConverter(object):
         :return:
         """
         return self.n
+
+    def get_meta(self):
+        """
+
+        :return:
+        """
+        if self.meta is None:
+            self.convert()
+        return self.meta
+
+    def get_graphs(self):
+        """
+
+        :return:
+        """
+        if self.graphs is None:
+            self.convert()
+        return self.graphs

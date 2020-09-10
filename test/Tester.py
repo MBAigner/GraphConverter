@@ -12,4 +12,6 @@ converter = GraphConverter(file,
                            use_vertical_overlap=True,
                            page_ratio_x=2, page_ratio_y=5, font_eps_h=1, font_eps_v=1)
 result = converter.convert()
-print(result["graphs"][0].out_edges(keys=True, data=True))
+graphs = converter.get_graphs()  # equivalent to result["graph"]
+meta = converter.get_meta()  # equivalent to result["meta"]
+print(graphs[0].out_edges(keys=True, data=True))  # edges of first page
