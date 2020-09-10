@@ -15,3 +15,4 @@ result = converter.convert()
 graphs = converter.get_graphs()  # equivalent to result["graph"]
 meta = converter.get_meta()  # equivalent to result["meta"]
 print(graphs[0].out_edges(keys=True, data=True))  # edges of first page
+print(graphs[0].nodes(data=True))  # nodes of first page

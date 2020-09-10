@@ -22,6 +22,7 @@ class GraphConverter(object):
                             width_pct_eps, width_page_eps)
         conv = PDFContentConverter(self.pdf).convert()
         self.loc_df = conv["content"]
+        self.loc_df["is_loop"] = 0
         self.media_boxes = conv["media_boxes"]
         self.n = conv["page_count"]
         self.loc_df = PDFTextBoxMerging(data=self.loc_df,
