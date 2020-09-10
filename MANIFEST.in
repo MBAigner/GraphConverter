@@ -1,0 +1,11 @@
+include README.rst
+include setup.cfg
+include setup.py
+include GraphConverter/GraphConverter.py
+include GraphConverter/__init__.py
+include GraphConverter/document/DocumentMetaCharacteristics.py
+include GraphConverter/merging/PDFTextBoxMerging.py
+include GraphConverter/util/RectangleUtil.py
+include GraphConverter/util/StorageUtil.py
+include GraphConverter/util/constants.py
+include GraphConverter/models/graph_parameters/*
