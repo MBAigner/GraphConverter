@@ -21,6 +21,7 @@ class GraphConverter(object):
         conv = PDFContentConverter(self.pdf).convert()
         self.loc_df = conv["content"]
         self.media_boxes = conv["media_boxes"]
+        self.n = conv["page_count"]
         self.loc_df = PDFTextBoxMerging(data=self.loc_df,
                                         media_boxes=self.media_boxes).transform()
         if self.loc_df is not None:
@@ -317,3 +318,17 @@ class GraphConverter(object):
         min_height = min(node1["y_0"] - node1["y_1"], node2["y_0"] - node2["y_1"])
         overlap = min(node1["y_0"], node2["y_0"]) - max(node1["y_1"], node2["y_1"])
         return overlap / min_height >= constants.VERTICAL_OVERLAP_THRESHOLD
+
+    def get_media_boxes(self):
+        """
+
+        :return:
+        """
+        return self.media_boxes
+
+    def get_page_count(self):
+        """
+
+        :return:
+        """
+        return self.n
