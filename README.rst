@@ -102,11 +102,11 @@ Edges are attributed with the following features:
 
 * ``direction``: shows the direction of an edge.
 
-	\* ``v``: Vertical edge
+    * ``v``: Vertical edge
 
-	\* ``h``: Horizontal edge
+    * ``h``: Horizontal edge
 
-	\* ``l``: Rectangular loop. This represents a novel concept encapsulating structural characteristics of document segments by observing if two different paths end up in the same node.
+    * ``l``: Rectangular loop. This represents a novel concept encapsulating structural characteristics of document segments by observing if two different paths end up in the same node.
 
 * ``length``: Scaled length of an edge
 
