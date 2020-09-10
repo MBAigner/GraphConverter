@@ -1,5 +1,5 @@
 import pandas as pd
-from util import constants
+from GraphConverter.util import constants
 
 
 class PDFTextBoxMerging(object):

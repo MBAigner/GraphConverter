@@ -1,5 +1,5 @@
 import numpy as np
-from util import constants, StorageUtil
+from GraphConverter.util import StorageUtil, constants
 
 
 class DocumentMetaCharacteristics(object):
@@ -125,5 +125,3 @@ class DocumentMetaCharacteristics(object):
                                          self.media_boxes[0]['x0']) / self.page_ratio_x
             self.threshold_y[page] = abs(self.media_boxes[0]['y1'] -
                                          self.media_boxes[0]['y0']) / self.page_ratio_y
-
-

@@ -1,9 +1,9 @@
-from converter.PDFContentConverter import PDFContentConverter
+from PDFContentConverter import PDFContentConverter
 import networkx as nx
 import numpy as np
-from util import constants, RectangleUtil
-from document.DocumentMetaCharacteristics import DocumentMetaCharacteristics
-from merging.PDFTextBoxMerging import PDFTextBoxMerging
+from GraphConverter.util import RectangleUtil, constants
+from GraphConverter.document.DocumentMetaCharacteristics import DocumentMetaCharacteristics
+from GraphConverter.merging.PDFTextBoxMerging import PDFTextBoxMerging
 
 
 class GraphConverter(object):
@@ -316,4 +316,4 @@ class GraphConverter(object):
         """
         min_height = min(node1["y_0"] - node1["y_1"], node2["y_0"] - node2["y_1"])
         overlap = min(node1["y_0"], node2["y_0"]) - max(node1["y_1"], node2["y_1"])
-        return overlap/min_height >= constants.VERTICAL_OVERLAP_THRESHOLD
+        return overlap / min_height >= constants.VERTICAL_OVERLAP_THRESHOLD
