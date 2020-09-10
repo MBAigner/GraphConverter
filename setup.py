@@ -7,7 +7,7 @@ setup(
   name='GraphConverter',
   packages=['GraphConverter', 'GraphConverter.util', 'GraphConverter.document', 'GraphConverter.merging',
             'GraphConverter.models'],
-  version='0.3',
+  version='0.4',
   license='MIT',
   description='A tool for creating a graph representation out of the content of PDF documents.',
   long_description=long_description,
